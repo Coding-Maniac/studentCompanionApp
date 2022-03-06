@@ -1,3 +1,7 @@
+/**
+ * A common file to maintain form data for the entire application
+ * */
+
 const accountTypeData = [
   {label: 'Student', value: 'student'},
   {label: 'Teacher', value: 'teacher'},
