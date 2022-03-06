@@ -3,7 +3,12 @@ import {StyleSheet} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {colors} from '../theme/theme';
 
-const DropdownComponent = props => {
+const AppDropDown = props => {
+  /**
+   * This component used all over the application to handle select fields
+   * data -> Must be passed as an array
+   * Checkout -> https://github.com/hoaphantn7604/react-native-element-dropdown#dropdown-example-1
+   * */
   const [value, setValue] = useState(null);
 
   return (
@@ -25,7 +30,7 @@ const DropdownComponent = props => {
   );
 };
 
-export default DropdownComponent;
+export default AppDropDown;
 
 const styles = StyleSheet.create({
   dropdown: {
