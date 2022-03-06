@@ -10,8 +10,8 @@ import React from 'react';
 import type {Node} from 'react';
 import {SafeAreaView} from 'react-native';
 
-import AppLoginScreen from './src/screens/auth/AppLoginScreen';
 import {ThemeProvider} from 'react-native-elements';
+import AppSignUpScreen from './src/screens/auth/AppSignUpScreen';
 
 const App: () => Node = () => {
   // const isDarkMode = useColorScheme() === 'dark';
@@ -23,7 +23,7 @@ const App: () => Node = () => {
   return (
     <SafeAreaView>
       <ThemeProvider>
-        <AppLoginScreen />
+        <AppSignUpScreen />
       </ThemeProvider>
     </SafeAreaView>
   );
