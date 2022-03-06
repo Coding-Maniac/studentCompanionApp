@@ -1,11 +1,13 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {Button, Card, Input} from 'react-native-elements';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {colors} from '../../theme/theme';
 import {appStyle} from '../../theme/appStyle';
 
 const AppLoginScreen = () => {
+  /**
+   * This component is used when a user logins into the application
+   * */
   return (
     <View style={appStyle.pageFormCenterView}>
       <Card>

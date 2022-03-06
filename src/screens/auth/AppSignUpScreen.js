@@ -8,10 +8,12 @@ import {
   departmentData,
   sectionData,
 } from '../../utils/FormData';
-import {Dropdown} from 'react-native-element-dropdown';
 import {colors} from '../../theme/theme';
 
 const AppSignUpScreen = () => {
+  /**
+   * This component is used when a user signs up into the application
+   * */
   const basicFormInputFields = [
     {
       placeholder: 'Name',
