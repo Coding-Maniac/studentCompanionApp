@@ -54,7 +54,7 @@ const AppLoginScreen = () => {
               setFormValues={setFormValues}
             />
           ))}
-          <Text>{error}</Text>
+          <Text style={appStyle.errorText}>{error}</Text>
           <Button
             title="Login"
             buttonStyle={{backgroundColor: 'rgba(39, 39, 39, 1)'}}

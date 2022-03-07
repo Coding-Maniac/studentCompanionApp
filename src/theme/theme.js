@@ -5,6 +5,7 @@
 const colors = {
   white: '#FFFFFF',
   black: '#000000',
+  red: '#FF3333',
 };
 
 export {colors};

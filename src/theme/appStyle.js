@@ -11,4 +11,9 @@ export const appStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  errorText: {
+    color: 'red',
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
 });
