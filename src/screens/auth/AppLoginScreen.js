@@ -1,13 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Button, Card, Input} from 'react-native-elements';
 import {colors} from '../../theme/theme';
 import {appStyle} from '../../theme/appStyle';
+import AppInput from '../../components/AppInput';
 
 const AppLoginScreen = () => {
   /**
    * This component is used when a user logins into the application
    * */
+  const [formValues, setFormValues] = useState({
+    roll_number: '',
+    password: '',
+  });
+
+  const formInputFields = [
+    {
+      keyboardType: 'number-pad',
+      placeholder: 'Roll Number',
+      name: 'roll_number',
+    },
+    {
+      placeholder: 'Password',
+      secureTextEntry: true,
+      name: 'password',
+    },
+  ];
+
+  const handleSubmitForm = () => {
+    console.log('Form Values', formValues);
+  };
+
   return (
     <View style={appStyle.pageFormCenterView}>
       <Card>
@@ -15,8 +38,14 @@ const AppLoginScreen = () => {
           <Card.Title>Login</Card.Title>
         </Card.Divider>
         <View style={appStyle.containerCenterContent}>
-          <Input keyboardType="number-pad" placeholder="Roll Number" />
-          <Input secureTextEntry={true} placeholder="Password" />
+          {formInputFields.map(data => (
+            <AppInput
+              key={data.name}
+              {...data}
+              formValues={formValues}
+              setFormValues={setFormValues}
+            />
+          ))}
           <Button
             title="Login"
             buttonStyle={{backgroundColor: 'rgba(39, 39, 39, 1)'}}
@@ -24,6 +53,7 @@ const AppLoginScreen = () => {
               width: 200,
             }}
             titleStyle={{color: colors.white}}
+            onPress={handleSubmitForm}
           />
         </View>
       </Card>
