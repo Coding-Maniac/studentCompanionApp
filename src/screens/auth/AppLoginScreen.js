@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {Button, Card, Input} from 'react-native-elements';
+import {Button, Card, Input, Text} from 'react-native-elements';
 import {colors} from '../../theme/theme';
 import {appStyle} from '../../theme/appStyle';
 import AppInput from '../../components/AppInput';
+import {handleUserLogin} from '../../utils/auth';
 
 const AppLoginScreen = () => {
   /**
@@ -13,6 +14,8 @@ const AppLoginScreen = () => {
     roll_number: '',
     password: '',
   });
+  const [formLoading, setFormLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const formInputFields = [
     {
@@ -27,8 +30,13 @@ const AppLoginScreen = () => {
     },
   ];
 
-  const handleSubmitForm = () => {
-    console.log('Form Values', formValues);
+  const handleSubmitForm = async () => {
+    setFormLoading(true);
+    const userData = await handleUserLogin(formValues);
+    if (userData?.error) {
+      setError(userData.error);
+    }
+    setFormLoading(false);
   };
 
   return (
@@ -46,6 +54,7 @@ const AppLoginScreen = () => {
               setFormValues={setFormValues}
             />
           ))}
+          <Text>{error}</Text>
           <Button
             title="Login"
             buttonStyle={{backgroundColor: 'rgba(39, 39, 39, 1)'}}
@@ -54,6 +63,7 @@ const AppLoginScreen = () => {
             }}
             titleStyle={{color: colors.white}}
             onPress={handleSubmitForm}
+            loading={formLoading}
           />
         </View>
       </Card>

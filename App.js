@@ -24,7 +24,7 @@ const App: () => Node = () => {
   return (
     <SafeAreaView>
       <ThemeProvider>
-        <AppSignUpScreen />
+        <AppLoginScreen />
       </ThemeProvider>
     </SafeAreaView>
   );
