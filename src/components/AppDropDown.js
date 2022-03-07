@@ -3,13 +3,24 @@ import {StyleSheet} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {colors} from '../theme/theme';
 
-const AppDropDown = props => {
+const AppDropDown = ({
+  placeholder,
+  name,
+  setFormValues,
+  formValues,
+  ...restProps
+}) => {
   /**
    * This component used all over the application to handle select fields
    * data -> Must be passed as an array
    * Checkout -> https://github.com/hoaphantn7604/react-native-element-dropdown#dropdown-example-1
    * */
-  const [value, setValue] = useState(null);
+  const handleInputChange = (name, item) => {
+    setFormValues({
+      ...formValues,
+      [name]: item,
+    });
+  };
 
   return (
     <Dropdown
@@ -20,12 +31,10 @@ const AppDropDown = props => {
       maxHeight={150}
       labelField="label"
       valueField="value"
-      placeholder={props.placeholder}
-      value={value}
-      onChange={item => {
-        setValue(item.value);
-      }}
-      {...props}
+      placeholder={placeholder}
+      value={formValues[name]}
+      onChange={item => handleInputChange(name, item.value)}
+      {...restProps}
     />
   );
 };

@@ -2,4 +2,7 @@
  * Common file to maintain constants such as API host and stuff
  * */
 
-export const API_HOST = 'http://localhost:3000';
+export const API_HOST = 'http://192.168.1.13:3030';
+
+// API_URLS
+export const SIGNUP = `${API_HOST}/auth/signup`;
