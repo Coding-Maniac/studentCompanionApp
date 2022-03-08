@@ -28,21 +28,23 @@ export const handleUserLogin = form_data => {
     .catch(err => err);
 };
 
-export const handleErpToken = async (roll_number, password) => {
-  fetch(ERP_AUTHORIZE, {
+export const handleErpToken = (roll_number, password) => {
+  const body = {
+    roll_number,
+    password,
+  };
+  return fetch(ERP_AUTHORIZE, {
     method: 'POST',
-    body: {
-      roll_number,
-      password,
-    },
+    body: JSON.stringify(body),
     headers: applicationHeaders,
   })
     .then(res => res.json())
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+    .then(resJ => resJ)
+    .catch(err => err);
 };
 
 export const storeCredentials = async (roll_number, password) => {
-  await AsyncStorage.setItem('roll_number', roll_number);
+  await AsyncStorage.setItem('roll_number', JSON.stringify(roll_number));
   await AsyncStorage.setItem('password', password);
+  return;
 };

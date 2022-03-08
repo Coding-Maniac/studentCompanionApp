@@ -41,7 +41,6 @@ const AppLoginScreen = () => {
       setError(userData.error);
     } else {
       await storeCredentials(userData.roll_number, userData.password);
-      handleErpToken(userData.roll_number, userData.password);
     }
     setFormLoading(false);
   };
