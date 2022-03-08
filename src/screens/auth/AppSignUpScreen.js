@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {appStyle} from '../../theme/appStyle';
-import {Button, Card, Input} from 'react-native-elements';
+import {Button, Card, Input, Text} from 'react-native-elements';
 import AppDropDown from '../../components/AppDropDown';
 import {
   accountTypeData,
@@ -11,6 +11,7 @@ import {
 import {colors} from '../../theme/theme';
 import AppInput from '../../components/AppInput';
 import {handleUserSignUp} from '../../utils/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AppSignUpScreen = () => {
   /**
@@ -18,6 +19,7 @@ const AppSignUpScreen = () => {
    * */
 
   const [formValues, setFormValues] = useState({});
+  const [error, setError] = useState(false);
   const basicFormInputFields = [
     {
       placeholder: 'Name',
@@ -37,7 +39,7 @@ const AppSignUpScreen = () => {
       placeholder: 'Account Type',
       data: accountTypeData,
       isDropdown: true,
-      name: 'account_type',
+      name: 'type',
     },
   ];
 
@@ -60,9 +62,19 @@ const AppSignUpScreen = () => {
     },
   ];
 
-  const handleFormSubmit = () => {
-    console.log(formValues);
-    handleUserSignUp(formValues);
+  const handleFormSubmit = async () => {
+    const data = await handleUserSignUp(formValues);
+    if (data?.errors || data?.error) {
+      setError(data.message || data.errors?.message);
+    } else {
+      setError({});
+      try {
+        await AsyncStorage.setItem('roll_number', data.roll_number);
+        await AsyncStorage.setItem('password', data.password);
+      } catch (e) {
+        setError('Failed to store local variables');
+      }
+    }
   };
   return (
     <View style={appStyle.pageFormCenterView}>
@@ -106,6 +118,7 @@ const AppSignUpScreen = () => {
                 />
               ),
             )}
+          <Text style={appStyle.errorText}>{error}</Text>
           <Button
             title="Signup"
             buttonStyle={{backgroundColor: 'rgba(39, 39, 39, 1)'}}

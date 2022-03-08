@@ -4,7 +4,11 @@ import {Button, Card, Input, Text} from 'react-native-elements';
 import {colors} from '../../theme/theme';
 import {appStyle} from '../../theme/appStyle';
 import AppInput from '../../components/AppInput';
-import {handleUserLogin} from '../../utils/auth';
+import {
+  handleErpToken,
+  handleUserLogin,
+  storeCredentials,
+} from '../../utils/auth';
 
 const AppLoginScreen = () => {
   /**
@@ -35,6 +39,9 @@ const AppLoginScreen = () => {
     const userData = await handleUserLogin(formValues);
     if (userData?.error) {
       setError(userData.error);
+    } else {
+      await storeCredentials(userData.roll_number, userData.password);
+      handleErpToken(userData.roll_number, userData.password);
     }
     setFormLoading(false);
   };
