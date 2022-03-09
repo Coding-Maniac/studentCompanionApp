@@ -10,6 +10,7 @@ import {
   storeCredentials,
 } from '../../utils/auth';
 import {APP_SIGNUP_SCREEN} from '../../navigation/Routes';
+import AppHandleInput from '../../components/AppHandleInput';
 
 const AppLoginScreen = ({navigation}) => {
   /**
@@ -57,11 +58,11 @@ const AppLoginScreen = ({navigation}) => {
         </Card.Divider>
         <View style={appStyle.containerCenterContent}>
           {formInputFields.map(data => (
-            <AppInput
+            <AppHandleInput
               key={data.name}
-              {...data}
-              formValues={formValues}
+              data={data}
               setFormValues={setFormValues}
+              formValues={formValues}
             />
           ))}
           <Text style={appStyle.errorText}>{error}</Text>
