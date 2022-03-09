@@ -2,9 +2,12 @@
  * A common file to maintain form data for the entire application
  * */
 
+const STUDENT = 'student';
+const TEACHER = 'teacher';
+
 const accountTypeData = [
-  {label: 'Student', value: 'student'},
-  {label: 'Teacher', value: 'teacher'},
+  {label: 'Student', value: STUDENT},
+  {label: 'Teacher', value: TEACHER},
 ];
 const departmentData = [
   {
@@ -24,4 +27,4 @@ const sectionData = [
   {label: 'D', value: 'd'},
 ];
 
-export {accountTypeData, departmentData, sectionData};
+export {accountTypeData, departmentData, sectionData, STUDENT, TEACHER};

@@ -20,6 +20,8 @@ const AppDropDown = ({
       ...formValues,
       [name]: item,
     });
+
+    console.log(item);
   };
 
   return (

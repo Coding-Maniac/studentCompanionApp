@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {appStyle} from '../../theme/appStyle';
 import {Button, Card, Input, Text} from 'react-native-elements';
 import AppDropDown from '../../components/AppDropDown';
@@ -7,6 +7,7 @@ import {
   accountTypeData,
   departmentData,
   sectionData,
+  STUDENT,
 } from '../../utils/FormData';
 import {colors} from '../../theme/theme';
 import AppInput from '../../components/AppInput';
@@ -82,32 +83,15 @@ const AppSignUpScreen = () => {
         <Card.Divider>
           <Card.Title>Sign Up</Card.Title>
         </Card.Divider>
-        <View style={appStyle.containerCenterContent}>
-          {basicFormInputFields.map(data =>
-            data?.isDropdown ? (
-              <AppDropDown
-                {...data}
-                key={data.name}
-                formValues={formValues}
-                setFormValues={setFormValues}
-              />
-            ) : (
-              <AppInput
-                {...data}
-                key={data.name}
-                formValues={formValues}
-                setFormValues={setFormValues}
-              />
-            ),
-          )}
-          {formValues.account_type === accountTypeData[0].value &&
-            studentFormInputFields.map(data =>
+        <ScrollView>
+          <View style={appStyle.containerCenterContent}>
+            {basicFormInputFields.map(data =>
               data?.isDropdown ? (
                 <AppDropDown
+                  {...data}
                   key={data.name}
                   formValues={formValues}
                   setFormValues={setFormValues}
-                  {...data}
                 />
               ) : (
                 <AppInput
@@ -118,17 +102,36 @@ const AppSignUpScreen = () => {
                 />
               ),
             )}
-          <Text style={appStyle.errorText}>{error}</Text>
-          <Button
-            title="Signup"
-            buttonStyle={{backgroundColor: 'rgba(39, 39, 39, 1)'}}
-            containerStyle={{
-              width: 200,
-            }}
-            titleStyle={{color: colors.white}}
-            onPress={handleFormSubmit}
-          />
-        </View>
+            {formValues.type === STUDENT &&
+              studentFormInputFields.map(data =>
+                data?.isDropdown ? (
+                  <AppDropDown
+                    key={data.name}
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                    {...data}
+                  />
+                ) : (
+                  <AppInput
+                    {...data}
+                    key={data.name}
+                    formValues={formValues}
+                    setFormValues={setFormValues}
+                  />
+                ),
+              )}
+            <Text style={appStyle.errorText}>{error}</Text>
+            <Button
+              title="Signup"
+              buttonStyle={{backgroundColor: 'rgba(39, 39, 39, 1)'}}
+              containerStyle={{
+                width: 200,
+              }}
+              titleStyle={{color: colors.white}}
+              onPress={handleFormSubmit}
+            />
+          </View>
+        </ScrollView>
       </Card>
     </View>
   );

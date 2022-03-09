@@ -9,8 +9,9 @@ import {
   handleUserLogin,
   storeCredentials,
 } from '../../utils/auth';
+import {APP_SIGNUP_SCREEN} from '../../navigation/Routes';
 
-const AppLoginScreen = () => {
+const AppLoginScreen = ({navigation}) => {
   /**
    * This component is used when a user logins into the application
    * */
@@ -45,6 +46,9 @@ const AppLoginScreen = () => {
     setFormLoading(false);
   };
 
+  const handleNavigateToSignUp = () => {
+    navigation.navigate(APP_SIGNUP_SCREEN);
+  };
   return (
     <View style={appStyle.pageFormCenterView}>
       <Card>
@@ -70,6 +74,25 @@ const AppLoginScreen = () => {
             titleStyle={{color: colors.white}}
             onPress={handleSubmitForm}
             loading={formLoading}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            margin: 0,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 20,
+          }}>
+          <Text>Dont have an account yet ?</Text>
+          <Button
+            containerStyle={{
+              width: 100,
+            }}
+            title="Sign Up"
+            type="clear"
+            onPress={handleNavigateToSignUp}
+            titleStyle={{color: colors.black}}
           />
         </View>
       </Card>

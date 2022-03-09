@@ -8,11 +8,8 @@
 
 import React from 'react';
 import type {Node} from 'react';
-import {SafeAreaView} from 'react-native';
 
 import {ThemeProvider} from 'react-native-elements';
-import AppSignUpScreen from './src/screens/auth/AppSignUpScreen';
-import AppLoginScreen from './src/screens/auth/AppLoginScreen';
 import AppStack from './src/navigation/AppStack';
 
 const App: () => Node = () => {
@@ -23,11 +20,9 @@ const App: () => Node = () => {
   // };
 
   return (
-    <SafeAreaView>
-      <ThemeProvider>
-        <AppStack />
-      </ThemeProvider>
-    </SafeAreaView>
+    <ThemeProvider>
+      <AppStack />
+    </ThemeProvider>
   );
 };
 
