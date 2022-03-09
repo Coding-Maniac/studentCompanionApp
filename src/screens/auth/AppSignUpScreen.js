@@ -13,6 +13,7 @@ import {colors} from '../../theme/theme';
 import AppInput from '../../components/AppInput';
 import {handleUserSignUp} from '../../utils/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppHandleInput from '../../components/AppHandleInput';
 
 const AppSignUpScreen = () => {
   /**
@@ -85,41 +86,23 @@ const AppSignUpScreen = () => {
         </Card.Divider>
         <ScrollView>
           <View style={appStyle.containerCenterContent}>
-            {basicFormInputFields.map(data =>
-              data?.isDropdown ? (
-                <AppDropDown
-                  {...data}
-                  key={data.name}
-                  formValues={formValues}
-                  setFormValues={setFormValues}
-                />
-              ) : (
-                <AppInput
-                  {...data}
-                  key={data.name}
-                  formValues={formValues}
-                  setFormValues={setFormValues}
-                />
-              ),
-            )}
+            {basicFormInputFields.map(data => (
+              <AppHandleInput
+                key={data.name}
+                data={data}
+                formValues={formValues}
+                setFormValues={setFormValues}
+              />
+            ))}
             {formValues.type === STUDENT &&
-              studentFormInputFields.map(data =>
-                data?.isDropdown ? (
-                  <AppDropDown
-                    key={data.name}
-                    formValues={formValues}
-                    setFormValues={setFormValues}
-                    {...data}
-                  />
-                ) : (
-                  <AppInput
-                    {...data}
-                    key={data.name}
-                    formValues={formValues}
-                    setFormValues={setFormValues}
-                  />
-                ),
-              )}
+              studentFormInputFields.map(data => (
+                <AppHandleInput
+                  key={data.name}
+                  data={data}
+                  formValues={formValues}
+                  setFormValues={setFormValues}
+                />
+              ))}
             <Text style={appStyle.errorText}>{error}</Text>
             <Button
               title="Signup"
