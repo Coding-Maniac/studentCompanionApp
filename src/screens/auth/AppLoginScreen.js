@@ -12,6 +12,8 @@ import {
 import {APP_SIGNUP_SCREEN} from '../../navigation/Routes';
 import AppHandleInput from '../../components/AppHandleInput';
 import {AppLogo} from '../../assets';
+import {Formik} from 'formik';
+import getFormikInitialValues from '../../utils/getFormikInitialValues';
 
 const AppLoginScreen = ({navigation}) => {
   /**
@@ -51,6 +53,8 @@ const AppLoginScreen = ({navigation}) => {
   const handleNavigateToSignUp = () => {
     navigation.navigate(APP_SIGNUP_SCREEN);
   };
+
+  const formikInitialValues = getFormikInitialValues(formInputFields);
   return (
     <View style={appStyle.pageFormCenterView}>
       <View style={appStyle.containerCenterContent}>
@@ -69,14 +73,30 @@ const AppLoginScreen = ({navigation}) => {
           <Card.Title>Login</Card.Title>
         </Card.Divider>
         <View style={appStyle.containerCenterContent}>
-          {formInputFields.map(data => (
-            <AppHandleInput
-              key={data.name}
-              data={data}
-              setFormValues={setFormValues}
-              formValues={formValues}
-            />
-          ))}
+          <Formik
+            initialValues={formikInitialValues}
+            onSubmit={handleSubmitForm}>
+            {({handleChange, handleBlur, handleSubmit, values}) => (
+              <>
+                {formInputFields.map(data => (
+                  <Input
+                    onChangeText={handleChange(data.name)}
+                    onBlur={handleBlur(data.name)}
+                    value={values.name}
+                    placeholder={data.placeholder}
+                  />
+                ))}
+              </>
+            )}
+          </Formik>
+          {/*<AppHandleInput*/}
+          {/*  key={data.name}*/}
+          {/*  data={data}*/}
+          {/*  setFormValues={setFormValues}*/}
+          {/*  formValues={formValues}*/}
+          {/*  onChangeText={handleChange(formInputFields.name)}*/}
+          {/*  value={values.formInputFields.name}*/}
+          {/*/>*/}
           <Text style={appStyle.errorText}>{error}</Text>
           <Button
             title="Login"
