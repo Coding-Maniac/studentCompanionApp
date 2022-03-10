@@ -1,29 +1,17 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {Button, Card, Image, Input, Text} from 'react-native-elements';
+import {Button, Image, Text} from 'react-native-elements';
 import {colors} from '../../theme/theme';
 import {appStyle} from '../../theme/appStyle';
-import AppInput from '../../components/AppInput';
-import {
-  handleErpToken,
-  handleUserLogin,
-  storeCredentials,
-} from '../../utils/auth';
+import {handleUserLogin, storeCredentials} from '../../utils/auth';
 import {APP_SIGNUP_SCREEN} from '../../navigation/Routes';
-import AppHandleInput from '../../components/AppHandleInput';
 import {AppLogo} from '../../assets';
-import {Formik} from 'formik';
-import getFormikInitialValues from '../../utils/getFormikInitialValues';
+import AppHandleForm from '../../components/AppHandleForm';
 
 const AppLoginScreen = ({navigation}) => {
   /**
    * This component is used when a user logins into the application
    * */
-  const [formValues, setFormValues] = useState({
-    roll_number: '',
-    password: '',
-  });
-  const [formLoading, setFormLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const formInputFields = [
@@ -39,22 +27,19 @@ const AppLoginScreen = ({navigation}) => {
     },
   ];
 
-  const handleSubmitForm = async () => {
-    setFormLoading(true);
-    const userData = await handleUserLogin(formValues);
+  const handleFormSubmit = async values => {
+    const userData = await handleUserLogin(values);
     if (userData?.error) {
       setError(userData.error);
     } else {
       await storeCredentials(userData.roll_number, userData.password);
     }
-    setFormLoading(false);
   };
 
   const handleNavigateToSignUp = () => {
     navigation.navigate(APP_SIGNUP_SCREEN);
   };
 
-  const formikInitialValues = getFormikInitialValues(formInputFields);
   return (
     <View style={appStyle.pageFormCenterView}>
       <View style={appStyle.containerCenterContent}>
@@ -67,48 +52,10 @@ const AppLoginScreen = ({navigation}) => {
           }}
         />
       </View>
-
-      <Card>
-        <Card.Divider>
-          <Card.Title>Login</Card.Title>
-        </Card.Divider>
-        <View style={appStyle.containerCenterContent}>
-          <Formik
-            initialValues={formikInitialValues}
-            onSubmit={handleSubmitForm}>
-            {({handleChange, handleBlur, handleSubmit, values}) => (
-              <>
-                {formInputFields.map(data => (
-                  <Input
-                    onChangeText={handleChange(data.name)}
-                    onBlur={handleBlur(data.name)}
-                    value={values.name}
-                    placeholder={data.placeholder}
-                  />
-                ))}
-              </>
-            )}
-          </Formik>
-          {/*<AppHandleInput*/}
-          {/*  key={data.name}*/}
-          {/*  data={data}*/}
-          {/*  setFormValues={setFormValues}*/}
-          {/*  formValues={formValues}*/}
-          {/*  onChangeText={handleChange(formInputFields.name)}*/}
-          {/*  value={values.formInputFields.name}*/}
-          {/*/>*/}
-          <Text style={appStyle.errorText}>{error}</Text>
-          <Button
-            title="Login"
-            buttonStyle={{backgroundColor: 'rgba(39, 39, 39, 1)'}}
-            containerStyle={{
-              width: 200,
-            }}
-            titleStyle={{color: colors.white}}
-            onPress={handleSubmitForm}
-            loading={formLoading}
-          />
-        </View>
+      <AppHandleForm
+        formInputFields={formInputFields}
+        handleFormSubmit={handleFormSubmit}
+        ctaText="Login">
         <View
           style={{
             flexDirection: 'row',
@@ -128,7 +75,7 @@ const AppLoginScreen = ({navigation}) => {
             titleStyle={{color: colors.black}}
           />
         </View>
-      </Card>
+      </AppHandleForm>
     </View>
   );
 };

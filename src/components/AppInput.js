@@ -4,24 +4,19 @@ import {Input} from 'react-native-elements';
 const AppInput = ({
   formValues,
   setFormValues,
-  data,
+  name,
+  placeholder,
   handleChange,
   handleBlur,
   values,
   ...restProps
 }) => {
-  const handleInputChange = (name, value) => {
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
   return (
     <Input
-      onChangeText={handleChange(data.name)}
-      onBlur={handleBlur(data.name)}
+      onChangeText={handleChange(name)}
+      onBlur={handleBlur(name)}
       value={values.name}
-      placeholder={data.placeholder}
+      placeholder={placeholder}
       {...restProps}
     />
   );

@@ -17,7 +17,14 @@ const AppHandleInput = ({
       setFormValues={setFormValues}
     />
   ) : (
-    <AppInput {...data} formValues={formValues} setFormValues={setFormValues} />
+    <AppInput
+      {...data}
+      formValues={formValues}
+      handleBlur={handleBlur}
+      handleChange={handleChange}
+      values={values}
+      setFormValues={setFormValues}
+    />
   );
 };
 
