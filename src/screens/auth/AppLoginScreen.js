@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {Button, Card, Input, Text} from 'react-native-elements';
+import {Button, Card, Image, Input, Text} from 'react-native-elements';
 import {colors} from '../../theme/theme';
 import {appStyle} from '../../theme/appStyle';
 import AppInput from '../../components/AppInput';
@@ -11,6 +11,7 @@ import {
 } from '../../utils/auth';
 import {APP_SIGNUP_SCREEN} from '../../navigation/Routes';
 import AppHandleInput from '../../components/AppHandleInput';
+import {AppLogo} from '../../assets';
 
 const AppLoginScreen = ({navigation}) => {
   /**
@@ -52,6 +53,17 @@ const AppLoginScreen = ({navigation}) => {
   };
   return (
     <View style={appStyle.pageFormCenterView}>
+      <View style={appStyle.containerCenterContent}>
+        <Image
+          source={AppLogo}
+          style={{
+            height: 100,
+            width: 100,
+            alignSelf: 'center',
+          }}
+        />
+      </View>
+
       <Card>
         <Card.Divider>
           <Card.Title>Login</Card.Title>
