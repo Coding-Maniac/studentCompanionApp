@@ -50,6 +50,7 @@ const AppLoginScreen = ({navigation}) => {
   };
 
   const {roll_number, password} = useSelector(state => state.app.user);
+  const {commonError} = useSelector(state => state.app.login);
   console.log('Roll Number', roll_number);
   console.log('Password', password);
 
@@ -68,7 +69,8 @@ const AppLoginScreen = ({navigation}) => {
       <AppHandleForm
         formInputFields={formInputFields}
         handleFormSubmit={handleFormSubmit}
-        ctaText="Login">
+        ctaText="Login"
+        commonError={commonError}>
         <View
           style={{
             flexDirection: 'row',

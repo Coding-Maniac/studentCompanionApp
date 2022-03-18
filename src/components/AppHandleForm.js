@@ -3,7 +3,7 @@ import {Button, Card} from 'react-native-elements';
 import {Formik} from 'formik';
 import {appStyle} from '../theme/appStyle';
 import getFormikInitialValues from '../utils/getFormikInitialValues';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import AppHandleInput from './AppHandleInput';
 import {colors} from '../theme/theme';
 
@@ -12,6 +12,7 @@ const AppHandleForm = ({
   ctaText,
   handleFormSubmit,
   children,
+  commonError,
 }) => {
   const formikInitialValues = getFormikInitialValues(formInputFields);
 
@@ -21,6 +22,7 @@ const AppHandleForm = ({
         <Card.Title>{ctaText}</Card.Title>
       </Card.Divider>
       <View style={appStyle.containerCenterContent}>
+        <Text style={appStyle.errorText}>{commonError}</Text>
         <Formik
           initialValues={formikInitialValues}
           onSubmit={values => handleFormSubmit(values)}>

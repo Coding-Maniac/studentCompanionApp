@@ -10,6 +10,12 @@ export const userLogin = createAsyncThunk('user/login', async data => {
 const appSlice = createSlice({
   name: 'app',
   initialState: {
+    login: {
+      roll_number: '',
+      password: '',
+      erp_token: '',
+      commonError: '',
+    },
     user: {
       roll_number: '',
       password: '',
@@ -30,6 +36,9 @@ const appSlice = createSlice({
       if (action.payload) {
         state.user.roll_number = action.payload.roll_number;
         state.user.password = action.payload.password;
+      }
+      if (action.payload?.error) {
+        state.login.commonError = action.payload.error;
       }
     });
   },
