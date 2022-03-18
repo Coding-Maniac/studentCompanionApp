@@ -3,7 +3,11 @@ import {View} from 'react-native';
 import {Button, Image, Text} from 'react-native-elements';
 import {colors} from '../../theme/theme';
 import {appStyle} from '../../theme/appStyle';
-import {handleUserLogin, storeCredentials} from '../../utils/auth';
+import {
+  handleErpToken,
+  handleUserLogin,
+  storeCredentials,
+} from '../../utils/auth';
 import {APP_SIGNUP_SCREEN} from '../../navigation/Routes';
 import {AppLogo} from '../../assets';
 import AppHandleForm from '../../components/AppHandleForm';
@@ -29,6 +33,7 @@ const AppLoginScreen = ({navigation}) => {
 
   const handleFormSubmit = async values => {
     const userData = await handleUserLogin(values);
+
     if (userData?.error) {
       setError(userData.error);
     } else {

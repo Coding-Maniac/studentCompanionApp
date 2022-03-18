@@ -42,7 +42,7 @@ const AppHandleForm = ({
                 }}
                 titleStyle={{color: colors.white}}
                 onPress={handleSubmit}
-                loading={isSubmitting}
+                loading={false}
               />
             </>
           )}
