@@ -11,12 +11,15 @@ import {
 import {APP_SIGNUP_SCREEN} from '../../navigation/Routes';
 import {AppLogo} from '../../assets';
 import AppHandleForm from '../../components/AppHandleForm';
+import {useDispatch, useSelector} from 'react-redux';
+import {userLogin} from '../../store/slices/appSlice';
 
 const AppLoginScreen = ({navigation}) => {
   /**
    * This component is used when a user logins into the application
    * */
   const [error, setError] = useState(false);
+  const dispatch = useDispatch();
 
   const formInputFields = [
     {
@@ -32,18 +35,23 @@ const AppLoginScreen = ({navigation}) => {
   ];
 
   const handleFormSubmit = async values => {
-    const userData = await handleUserLogin(values);
-
-    if (userData?.error) {
-      setError(userData.error);
-    } else {
-      await storeCredentials(userData.roll_number, userData.password);
-    }
+    // const userData = await handleUserLogin(values);
+    //
+    // if (userData?.error) {
+    //   setError(userData.error);
+    // } else {
+    //   await storeCredentials(userData.roll_number, userData.password);
+    // }
+    dispatch(userLogin(values));
   };
 
   const handleNavigateToSignUp = () => {
     navigation.navigate(APP_SIGNUP_SCREEN);
   };
+
+  const {roll_number, password} = useSelector(state => state.app.user);
+  console.log('Roll Number', roll_number);
+  console.log('Password', password);
 
   return (
     <View style={appStyle.pageFormCenterView}>
