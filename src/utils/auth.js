@@ -48,3 +48,7 @@ export const storeCredentials = async (roll_number, password) => {
   await AsyncStorage.setItem('password', password);
   return;
 };
+
+export const saveToken = async token => {
+  await AsyncStorage.setItem('token', token);
+};

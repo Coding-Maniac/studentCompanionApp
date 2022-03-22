@@ -8,7 +8,7 @@ import {
   handleUserLogin,
   storeCredentials,
 } from '../../utils/auth';
-import {APP_SIGNUP_SCREEN} from '../../navigation/Routes';
+import {APP_HOME_SCREEN, APP_SIGNUP_SCREEN} from '../../navigation/Routes';
 import {AppLogo} from '../../assets';
 import AppHandleForm from '../../components/AppHandleForm';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,6 +20,9 @@ const AppLoginScreen = ({navigation}) => {
    * */
   const [error, setError] = useState(false);
   const dispatch = useDispatch();
+
+  const {roll_number, password} = useSelector(state => state.app.user);
+  const {commonError, isLoading} = useSelector(state => state.app.login);
 
   const formInputFields = [
     {
@@ -43,14 +46,17 @@ const AppLoginScreen = ({navigation}) => {
     //   await storeCredentials(userData.roll_number, userData.password);
     // }
     dispatch(userLogin(values));
+    navigation.navigate('home', {
+      roll_number: values.roll_number,
+      password: values.password,
+    });
+    navigation.navigate(APP_HOME_SCREEN);
   };
 
   const handleNavigateToSignUp = () => {
     navigation.navigate(APP_SIGNUP_SCREEN);
   };
 
-  const {roll_number, password} = useSelector(state => state.app.user);
-  const {commonError} = useSelector(state => state.app.login);
   console.log('Roll Number', roll_number);
   console.log('Password', password);
 
@@ -70,7 +76,8 @@ const AppLoginScreen = ({navigation}) => {
         formInputFields={formInputFields}
         handleFormSubmit={handleFormSubmit}
         ctaText="Login"
-        commonError={commonError}>
+        commonError={commonError}
+        isLoading={isLoading}>
         <View
           style={{
             flexDirection: 'row',

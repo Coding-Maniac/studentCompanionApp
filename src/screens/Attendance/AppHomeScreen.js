@@ -1,13 +1,17 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import {handleErpToken} from '../../utils/auth';
 
-const AppHomeScreen = () => {
-  // useEffect(() => {
-  //   const getErpToken = async () => {
-  //     await handleErpToken();
-  //   };
-  // });
+const AppHomeScreen = ({route: {params}}) => {
+  const [token, setToken] = useState('');
+  useEffect(() => {
+    const getErpToken = async () => {
+      const resp = await handleErpToken(params?.roll_number, params?.password);
+      setToken(resp.token);
+    };
+
+    getErpToken();
+  }, []);
   return (
     <View>
       <Text>asdsad</Text>

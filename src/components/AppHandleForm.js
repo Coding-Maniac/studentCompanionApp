@@ -13,6 +13,7 @@ const AppHandleForm = ({
   handleFormSubmit,
   children,
   commonError,
+  isLoading,
 }) => {
   const formikInitialValues = getFormikInitialValues(formInputFields);
 
@@ -44,7 +45,7 @@ const AppHandleForm = ({
                 }}
                 titleStyle={{color: colors.white}}
                 onPress={handleSubmit}
-                loading={false}
+                loading={isLoading}
               />
             </>
           )}
