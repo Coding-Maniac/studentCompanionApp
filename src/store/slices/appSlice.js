@@ -4,6 +4,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 export const userLogin = createAsyncThunk('user/login', async data => {
   const response = await handleUserLogin(data);
+  console.log("In User Login thunk")
   // const erpToken = await handleErpToken(data);
   return {...response};
 });
@@ -17,6 +18,7 @@ const appSlice = createSlice({
       erp_token: '',
       commonError: '',
       isLoading: false,
+      loginSuccess: false
     },
     user: {
       roll_number: '',
@@ -30,6 +32,7 @@ const appSlice = createSlice({
         roll_number: '',
         password: '',
         erp_token: '',
+        loginSuccess: false
       };
     },
   },
@@ -45,9 +48,11 @@ const appSlice = createSlice({
 
         state.user.roll_number = action.payload.roll_number;
         state.user.password = action.payload.password;
+        state.user.loginSuccess = true;
       }
       if (action.payload?.error) {
         state.login.commonError = action.payload.error;
+        state.user.loginSuccess = false;
       }
     });
   },

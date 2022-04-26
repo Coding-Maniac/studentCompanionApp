@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {Button, Image, Text} from 'react-native-elements';
 import {colors} from '../../theme/theme';
@@ -22,7 +22,7 @@ const AppLoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const {roll_number, password} = useSelector(state => state.app.user);
-  const {commonError, isLoading} = useSelector(state => state.app.login);
+  const {commonError, isLoading, loginSuccess} = useSelector(state => state.app.login);
 
   const formInputFields = [
     {
@@ -37,20 +37,20 @@ const AppLoginScreen = ({navigation}) => {
     },
   ];
 
+  useEffect(() => {
+    if(loginSuccess){
+      navigation.navigate('home', {
+        roll_number: values.roll_number,
+        password: values.password,
+      });
+      navigation.navigate(APP_HOME_SCREEN);
+    }
+  }, [loginSuccess])
+
   const handleFormSubmit = async values => {
-    // const userData = await handleUserLogin(values);
-    //
-    // if (userData?.error) {
-    //   setError(userData.error);
-    // } else {
-    //   await storeCredentials(userData.roll_number, userData.password);
-    // }
+    console.log("Form Values", values)
     dispatch(userLogin(values));
-    navigation.navigate('home', {
-      roll_number: values.roll_number,
-      password: values.password,
-    });
-    navigation.navigate(APP_HOME_SCREEN);
+    
   };
 
   const handleNavigateToSignUp = () => {
