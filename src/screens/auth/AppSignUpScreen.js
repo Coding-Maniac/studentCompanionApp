@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {ScrollView, View} from 'react-native';
-import {appStyle} from '../../theme/appStyle';
-import {Button, Card, Input, Text} from 'react-native-elements';
+import React, { useState } from 'react';
+import { ScrollView, View } from 'react-native';
+import { appStyle } from '../../theme/appStyle';
+import { Button, Card, Input, Text } from 'react-native-elements';
 import AppDropDown from '../../components/AppDropDown';
 import {
   accountTypeData,
@@ -9,9 +9,9 @@ import {
   sectionData,
   STUDENT,
 } from '../../utils/FormData';
-import {colors} from '../../theme/theme';
+import { colors } from '../../theme/theme';
 import AppInput from '../../components/AppInput';
-import {handleUserSignUp} from '../../utils/auth';
+import { handleUserSignUp } from '../../utils/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppHandleInput from '../../components/AppHandleInput';
 
@@ -69,7 +69,7 @@ const AppSignUpScreen = () => {
     if (data?.errors || data?.error) {
       setError(data.message || data.errors?.message);
     } else {
-      setError({});
+      setError(null);
       try {
         await AsyncStorage.setItem('roll_number', data.roll_number);
         await AsyncStorage.setItem('password', data.password);
@@ -88,29 +88,39 @@ const AppSignUpScreen = () => {
           <View style={appStyle.containerCenterContent}>
             {basicFormInputFields.map(data => (
               <AppHandleInput
-                key={data.name}
                 data={data}
                 formValues={formValues}
                 setFormValues={setFormValues}
+                handleChange={(e) => {
+                  console.log(e)
+                }}
+                handleBlur={(e) => {
+                  console.log(e)
+                }}
               />
             ))}
             {formValues.type === STUDENT &&
               studentFormInputFields.map(data => (
                 <AppHandleInput
-                  key={data.name}
                   data={data}
                   formValues={formValues}
                   setFormValues={setFormValues}
+                  handleChange={(e) => {
+                    console.log(e.value)
+                  }}
+                  handleBlur={(e) => {
+                    console.log(e)
+                  }}
                 />
               ))}
             <Text style={appStyle.errorText}>{error}</Text>
             <Button
               title="Signup"
-              buttonStyle={{backgroundColor: 'rgba(39, 39, 39, 1)'}}
+              buttonStyle={{ backgroundColor: 'rgba(39, 39, 39, 1)' }}
               containerStyle={{
                 width: 200,
               }}
-              titleStyle={{color: colors.white}}
+              titleStyle={{ color: colors.white }}
               onPress={handleFormSubmit}
             />
           </View>

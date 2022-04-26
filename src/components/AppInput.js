@@ -1,9 +1,9 @@
 import React from 'react';
-import {Input} from 'react-native-elements';
+import { Input } from 'react-native-elements';
 
 const AppInput = ({
   formValues,
-  setFormValues,
+  setFormValues = () => { },
   name,
   placeholder,
   handleChange,
@@ -13,9 +13,14 @@ const AppInput = ({
 }) => {
   return (
     <Input
-      onChangeText={handleChange(name)}
+      onChangeText={(value) => {
+        setFormValues({
+          ...formValues,
+          [name]: value
+        })
+        handleChange(name)
+      }}
       onBlur={handleBlur(name)}
-      value={values.name}
       placeholder={placeholder}
       {...restProps}
     />
