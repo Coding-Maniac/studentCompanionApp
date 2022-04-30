@@ -4,8 +4,14 @@ import {createSlice} from '@reduxjs/toolkit';
 
 export const userLogin = createAsyncThunk('user/login', async data => {
   const response = await handleUserLogin(data);
-  console.log("In User Login thunk")
+  console.log('In User Login thunk');
   // const erpToken = await handleErpToken(data);
+  return {...response};
+});
+
+export const userToken = createAsyncThunk('user/token', async data => {
+  const response = await handleErpToken(data);
+
   return {...response};
 });
 
@@ -18,12 +24,13 @@ const appSlice = createSlice({
       erp_token: '',
       commonError: '',
       isLoading: false,
-      loginSuccess: false
+      loginSuccess: false,
     },
     user: {
       roll_number: '',
       password: '',
       erp_token: '',
+      erp_authorize_loading: true,
     },
   },
   reducers: {
@@ -32,7 +39,7 @@ const appSlice = createSlice({
         roll_number: '',
         password: '',
         erp_token: '',
-        loginSuccess: false
+        loginSuccess: false,
       };
     },
   },
@@ -54,6 +61,11 @@ const appSlice = createSlice({
         state.login.commonError = action.payload.error;
         state.user.loginSuccess = false;
       }
+    });
+    builder.addCase(userToken.fulfilled, (state, action) => {
+      state.user.erp_token = action.payload.token;
+      state.login.erp_token = action.payload.token;
+      state.user.erp_authorize_loading = false;
     });
   },
 });

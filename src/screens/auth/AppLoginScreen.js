@@ -41,14 +41,14 @@ const AppLoginScreen = ({ navigation }) => {
 
   useEffect(() => {
     console.log("In Use effect")
+    console.log("Form Values", formValues)
     if (loginSuccess) {
-      navigation.navigate('home', {
+      navigation.navigate(APP_HOME_SCREEN, {
         roll_number: formValues.roll_number,
         password: formValues.password,
       });
-      navigation.navigate(APP_HOME_SCREEN);
     }
-  }, [loginSuccess])
+  }, [loginSuccess, roll_number, password])
 
   const handleFormSubmit = () => {
     dispatch(userLogin(formValues));
@@ -91,6 +91,7 @@ const AppLoginScreen = ({ navigation }) => {
               }}
             />
           ))}
+          <Text style={appStyle.errorText}>{commonError}</Text>
           <Button
             title="Login"
             buttonStyle={{ backgroundColor: 'rgba(39, 39, 39, 1)' }}
@@ -121,10 +122,6 @@ const AppLoginScreen = ({ navigation }) => {
           </View>
         </View>
       </Card>
-
-
-
-
     </View>
   );
 };

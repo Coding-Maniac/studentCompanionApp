@@ -1,6 +1,6 @@
 # Student Companion App
 
-#### This app is used to caluclate and predict attendance for Hindustan University.
+#### This app is used to calculate and predict attendance for Hindustan University.
 
 
 ### Getting Started

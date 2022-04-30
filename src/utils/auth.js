@@ -28,11 +28,10 @@ export const handleUserLogin = form_data => {
     .catch(err => err);
 };
 
-export const handleErpToken = (roll_number, password) => {
-  const body = {
-    roll_number,
-    password,
-  };
+export const handleErpToken = body => {
+  console.log('Erp Token Roll Number', body);
+  console.log('Erp password', body);
+
   return fetch(ERP_AUTHORIZE, {
     method: 'POST',
     body: JSON.stringify(body),
